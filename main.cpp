@@ -100,12 +100,12 @@ namespace offer_8_1{
 }
 namespace offer_9_1{
     void test(){
-        CQueue<int>* q = new CQueue<int>();
+        CQueue<int> queue;
         int length=10;
         for (int i=0;i<length;i++) {
-            q->appendTail(i);
+            queue.appendTail(i);
         }
-        q->deleteHead();
+        queue.deleteHead();
 
     }
 }

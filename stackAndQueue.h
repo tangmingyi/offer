@@ -26,13 +26,13 @@ namespace offer_9_1{
     template<typename T> void CQueue<T>::appendTail(const T &node) {
         stack1.push(node);
     }
-    template<typename T> T CQueue<T>::deleteHead() {
+    template<typename S> S CQueue<S>::deleteHead() {
         if (stack1.empty() && stack2.empty()){
             printf("no have data in queue");
             exit(1);
         }
         if (!stack2.empty()){
-            T value = stack2.top();
+            S value = stack2.top();
             stack2.pop();
             printf("top %d",value);
             return value;
@@ -41,10 +41,13 @@ namespace offer_9_1{
                 stack2.push(stack1.top());
                 stack1.pop();
             }
-            T value = stack2.top();
+            S value = stack2.top();
             stack2.pop();
             printf("top %d",value);
             return value;
         }
     }
+
+    template <typename W> CQueue<W>::CQueue(void) {}
+    template <typename T> CQueue<T>::~CQueue(void) {}
 }
