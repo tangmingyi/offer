@@ -5,6 +5,9 @@
 #include "print_list_reversingly_6.h"
 #include "tree.h"
 #include "stackAndQueue.h"
+#include "DynamicPlan.h"
+#include "SortAndFind.h"
+#include "list.h"
 //using namespace ios;
 //3.1
 //int main() {
@@ -110,12 +113,44 @@ namespace offer_9_1{
     }
 }
 
+namespace offer_10_1{
+    void test(){
+        unsigned n = 5;
+        printf("%d",Fibonacci(n));
+    }
+}
+
+namespace sort{
+    void test(){
+        int length = 5;
+        int data[length] = {2,4,1,2,9};
+        QuickSort(data,length,0,length-1);
+        for (int i=0;i<length;i++){
+            printf("%d",data[i]);
+        }
+    }
+
+}
+
+namespace offer_11_1{
+    void test() {
+        int length = 4;
+        int data[length] = {1,0,1,1};
+        int a = Min(data,length);
+        printf("%d",a);
+    }
+
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
 //    offer_6_1::test();
 //    offer_7_1::test();
 //    offer_8_1::test();
-    offer_9_1::test();
+//    offer_9_1::test();
+//    offer_10_1::test();     //#include "DynamicPlan.h"
+//    sort::test(); //快排 #include "SortAndFind.h"
+//    offer_11_1::test(); //#include "list.h"
     return 0;
 }
