@@ -27,23 +27,65 @@ namespace offer_10_1{
         }
     }
 }
+namespace {
+    bool checkIndex(int index,int rows,int cols){
+        if (index>=0 && index<rows*cols){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-namespace offer_12_1{
-    void corePath(char* matrix,int rows,int cols,char* str,int index){
+    bool corePath(char* matrix,int rows,int cols,char* str,int index,bool* visited){
+        if (*str == '\0') {
+            return true;
+        }
         int left = index-1;
         int right = index+1;
         int top = index-cols;
         int down = index+cols;
-        if (*str == '\0') {
-            return
+        if (checkIndex(left,rows,cols)&&matrix[left]==*str&&!visited[left]){
+            visited[left] = true;
+            if (corePath(matrix,rows,cols,++str,left,visited)) return true;
+            visited[left] = false;
         }
-        if (left>=0&&left<cols*rows&&(index!=left)&&matrix[left]==*str){
+        if (checkIndex(right,rows,cols)&&matrix[right]==*str&&!visited[right]){
+            visited[right] = true;
+            if (corePath(matrix,rows,cols,++str,right,visited)) return true;
+            visited[right] = false;
+        }
+        if (checkIndex(top,rows,cols)&&matrix[top]==*str&&!visited[top]){
+            visited[top] = true;
+            if(corePath(matrix,rows,cols,++str,top,visited)) return true;
+            visited[top] = false;
+        }
+        if (checkIndex(down,rows,cols)&&matrix[down]==*str&&!visited[down]){
+            visited[down] = true;
+            if(corePath(matrix,rows,cols,++str,down,visited)) return true;
+            visited[down] = false;
+        }
+        return false;
 
-            corePath(matrix,rows,cols,)
-        }
     }
+}
+namespace offer_12_1{
 
     bool hasPath(char* matrix,int rows,int cols,char* str){
+        bool visited[rows*cols];
+        char* pstr = str;
+        for (int i=0;i<rows*cols;i++){
+            visited[i] = false;
+        }
+        for (int i=0;i<rows*cols;i++){
+            if(*str!=matrix[i]){
+                continue;
+            }
+            if(corePath(matrix,rows,cols,++pstr,i,visited)){
+                return true;
+            }
+            pstr = str;
+        }
+        pstr = nullptr;
         return false;
     }
 }

@@ -141,6 +141,20 @@ namespace offer_11_1{
     }
 
 }
+namespace offer_12_1{
+    void test(){
+        int rows = 3;
+        int cols = 4;
+        char martrix[rows*cols] = {'a','b','t','g','c','f','c','s','j','d','e','h'};
+        char strs[] = "abfb";
+//        char* str = strs;
+        if(hasPath(martrix,rows,cols,strs)){
+            printf("have path for string: %s",strs);
+        } else{
+            printf("have not path for str: %s",strs);
+        }
+    }
+}
 
 int main(){
 //    offer_4_1::test();
@@ -152,5 +166,7 @@ int main(){
 //    offer_10_1::test();     //#include "DynamicPlan.h"
 //    sort::test(); //快排 #include "SortAndFind.h"
 //    offer_11_1::test(); //#include "list.h"
+    offer_12_1::test(); //#include "DynamicPlan.h"
     return 0;
+
 }
