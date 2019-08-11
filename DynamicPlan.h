@@ -90,7 +90,7 @@ namespace offer_12_1 {
     }
 }
 
-namespace offer_13_1 {
+namespace {
     void initVisited(bool *visited, int rows, int cols) {
         for(int i=0;i<rows*cols;i++){
             visited[i] = false;
@@ -105,27 +105,29 @@ namespace offer_13_1 {
         return sum;
     }
     int digitSum(int row, int col) {
-        return digitSumcore(row)+digitSumcore(col)
+        return digitSumcore(row)+digitSumcore(col);
     }
 
-    bool checkThreshold(int threshold, int row, int col, int rows,int cols, bool *visited) {
+    bool checkThreshold(int threshold, int row, int col, int rows,int cols, bool* visited) {
         if(digitSum(row,col)<=threshold&&row>=0&&row<rows&&col>=0&&col<cols&&!visited[col+row*cols]){
+            visited[col+row*cols] = true;
             return true;
         }
         return false;
     }
 
-    int coreCount(int threshold, int row, int col,int rows, int cols, bool *visited) {
-        if (checkThreshold(threshold, row, col, cols, visited)) {
-            int count = 1 + coreCount(threshold, row + 1, col, cols, visited) +
-                        coreCount(threshold, row - 1, col, cols, visited) +
-                        coreCount(threshold, row, col + 1, cols, visited) +
-                        coreCount(threshold, row, col - 1, cols, visited);
-            return count
+    int coreCount(int threshold, int row, int col,int rows, int cols, bool* visited) {
+        if (checkThreshold(threshold, row, col, rows,cols, visited)) {
+            int count = 1 + coreCount(threshold, row + 1, col, rows,cols, visited) +
+                        coreCount(threshold, row - 1, col, rows,cols, visited) +
+                        coreCount(threshold, row, col + 1, rows,cols, visited) +
+                        coreCount(threshold, row, col - 1, rows,cols, visited);
+            return count;
         }
         return 0;
     }
-
+}
+namespace offer_13_1 {
     int movingCount(int threshold, int rows, int cols) {
         if (threshold < 0 || rows < 0 || cols < 0) {
             return 0;
@@ -135,4 +137,8 @@ namespace offer_13_1 {
         return coreCount(threshold, 0, 0,rows, cols, visited);
 
     }
+}
+
+namespace offer_14_1{
+
 }
