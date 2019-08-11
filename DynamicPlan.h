@@ -92,36 +92,39 @@ namespace offer_12_1 {
 
 namespace {
     void initVisited(bool *visited, int rows, int cols) {
-        for(int i=0;i<rows*cols;i++){
+        for (int i = 0; i < rows * cols; i++) {
             visited[i] = false;
         }
     }
-    int digitSumcore(int num){
+
+    int digitSumcore(int num) {
         int sum = 0;
-        while (num !=0){
-            sum += num%10;
-            num = num/10;
+        while (num != 0) {
+            sum += num % 10;
+            num = num / 10;
         }
         return sum;
     }
+
     int digitSum(int row, int col) {
-        return digitSumcore(row)+digitSumcore(col);
+        return digitSumcore(row) + digitSumcore(col);
     }
 
-    bool checkThreshold(int threshold, int row, int col, int rows,int cols, bool* visited) {
-        if(digitSum(row,col)<=threshold&&row>=0&&row<rows&&col>=0&&col<cols&&!visited[col+row*cols]){
-            visited[col+row*cols] = true;
+    bool checkThreshold(int threshold, int row, int col, int rows, int cols, bool *visited) {
+        if (digitSum(row, col) <= threshold && row >= 0 && row < rows && col >= 0 && col < cols &&
+            !visited[col + row * cols]) {
+            visited[col + row * cols] = true;
             return true;
         }
         return false;
     }
 
-    int coreCount(int threshold, int row, int col,int rows, int cols, bool* visited) {
-        if (checkThreshold(threshold, row, col, rows,cols, visited)) {
-            int count = 1 + coreCount(threshold, row + 1, col, rows,cols, visited) +
-                        coreCount(threshold, row - 1, col, rows,cols, visited) +
-                        coreCount(threshold, row, col + 1, rows,cols, visited) +
-                        coreCount(threshold, row, col - 1, rows,cols, visited);
+    int coreCount(int threshold, int row, int col, int rows, int cols, bool *visited) {
+        if (checkThreshold(threshold, row, col, rows, cols, visited)) {
+            int count = 1 + coreCount(threshold, row + 1, col, rows, cols, visited) +
+                        coreCount(threshold, row - 1, col, rows, cols, visited) +
+                        coreCount(threshold, row, col + 1, rows, cols, visited) +
+                        coreCount(threshold, row, col - 1, rows, cols, visited);
             return count;
         }
         return 0;
@@ -134,11 +137,39 @@ namespace offer_13_1 {
         }
         bool visited[rows * cols];
         initVisited(visited, rows, cols);
-        return coreCount(threshold, 0, 0,rows, cols, visited);
+        return coreCount(threshold, 0, 0, rows, cols, visited);
 
     }
 }
 
-namespace offer_14_1{
-
+namespace offer_14_1 {
+    int maxProduct(int length) {
+        if (length < 2) {
+            return 0;
+        }
+        if (length == 2) {
+            return 1;
+        }
+        if (length == 3) {
+            return 2;
+        }
+        int products[length+1];
+        products[0] = 0;
+        products[1] = 1;
+        products[2] = 1;
+        products[3] = 3;
+        int max = 0;
+        for (int i = 4; i <= length; i++) {
+            max = 0;
+            for (int j = 1; j <= i / 2; j++) {
+                int product = products[j] * products[i - j];
+                if (max < product) {
+                    max = product;
+                }
+            }
+            products[i] = max;
+        }
+        max = products[length];
+        return max;
+    }
 }

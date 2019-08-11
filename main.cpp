@@ -164,6 +164,13 @@ namespace offer_13_1{
     }
 }
 
+namespace offer_14_1{
+    void test(){
+        int length = 6;
+        printf("max result is %d",maxProduct(length));
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -175,7 +182,8 @@ int main(){
 //    sort::test(); //快排 #include "SortAndFind.h"
 //    offer_11_1::test(); //#include "list.h"
 //    offer_12_1::test(); //#include "DynamicPlan.h"
-    offer_13_1::test(); //#include "DynamicPlan.h"
+//    offer_13_1::test(); //#include "DynamicPlan.h"
+    offer_14_1::test(); //#include "DynamicPlan.h"
     return 0;
 
 }
