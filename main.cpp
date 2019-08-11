@@ -155,6 +155,14 @@ namespace offer_12_1{
         }
     }
 }
+namespace offer13_1{
+    void test(){
+        int threshold=6;
+        int rows=10;
+        int cols=10;
+        printf("count is %d",movingCount(threshold, rows, cols))
+    }
+}
 
 int main(){
 //    offer_4_1::test();
@@ -166,7 +174,8 @@ int main(){
 //    offer_10_1::test();     //#include "DynamicPlan.h"
 //    sort::test(); //快排 #include "SortAndFind.h"
 //    offer_11_1::test(); //#include "list.h"
-    offer_12_1::test(); //#include "DynamicPlan.h"
+//    offer_12_1::test(); //#include "DynamicPlan.h"
+    offer13_1::test(); //#include "DynamicPlan.h"
     return 0;
 
 }
