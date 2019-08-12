@@ -3,4 +3,4 @@ project(offer)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(offer main.cpp DynamicPlan.h)
+add_executable(offer main.cpp DynamicPlan.h bitOper.h)

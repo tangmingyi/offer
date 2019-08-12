@@ -8,6 +8,7 @@
 #include "DynamicPlan.h"
 #include "SortAndFind.h"
 #include "list.h"
+#include "bitOper.h"
 //using namespace ios;
 //3.1
 //int main() {
@@ -171,6 +172,22 @@ namespace offer_14_1{
     }
 }
 
+namespace offer_15_1{
+    void test(){
+        int number = 9;
+        printf("number %d have %d number of 1",number,NumberOf1(number));
+    }
+}
+
+namespace offer_16_1{
+    void test(){
+        double base = 9.0;
+        int expont = -3;
+        double resoult = Power(base,expont);
+        printf("%f ^ %d = %f",base,expont,resoult);
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -183,7 +200,12 @@ int main(){
 //    offer_11_1::test(); //#include "list.h"
 //    offer_12_1::test(); //#include "DynamicPlan.h"
 //    offer_13_1::test(); //#include "DynamicPlan.h"
-    offer_14_1::test(); //#include "DynamicPlan.h"
+//    offer_14_1::test(); //#include "DynamicPlan.h"
+//    offer_15_1::test(); //bitOper.h
+//    offer_16_1::test(); //bitOper.h
+//    offer_17_1::printToN(10);   //bitOper.h
+//    offer_17_1::printToNadd(10); //bitOper.h
+    offer_17_1::printToNrecursion(10); //bitOper.h
     return 0;
 
 }
