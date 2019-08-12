@@ -2,7 +2,7 @@
 #include "duplicate_num_3.h"
 #include "duplicate_num_4.h"
 #include "replace_blank.h"
-#include "print_list_reversingly_6.h"
+#include "linkList.h"
 #include "tree.h"
 #include "stackAndQueue.h"
 #include "DynamicPlan.h"
@@ -188,6 +188,47 @@ namespace offer_16_1{
     }
 }
 
+namespace offer_18_1{
+    void test(){
+        offer_6_1::ListNode* OneNode = nullptr;
+        offer_6_1::ListNode** pHead = &OneNode;
+        int lenght = 3;
+        for (int i=0;i<lenght;i++){
+            AddNodeEnd(pHead,i);
+        }
+        offer_6_1::ListNode* pNode = *pHead;
+        offer_6_1::ListNode* toBeDelete = pNode -> p_next;
+        DeleteNode(pHead,toBeDelete);
+        while (pNode->p_next!= nullptr){
+            printf("-> %d",pNode->value);
+            pNode = pNode->p_next;
+        }
+        printf("-> %d",pNode->value);
+    }
+}
+
+namespace offer_18_2{
+    void test(){
+        offer_6_1::ListNode* OneNode = nullptr;
+        offer_6_1::ListNode** pHead = &OneNode;
+        int lenght = 6;
+        for (int i=0;i<lenght;i++){
+            AddNodeEnd(pHead,i);
+        }
+        offer_6_1::ListNode* pNode = *pHead;
+        while(pNode->value!=3){
+            pNode=pNode->p_next;
+        }
+        pNode = *pHead;
+        pNode->p_next->value = 0;
+        offer_6_1::printLinkList(*pHead);
+//        pNode->p_next->p_next->value=3;
+        deleteDuplication(pHead);
+        offer_6_1::printLinkList(*pHead);
+
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -205,7 +246,9 @@ int main(){
 //    offer_16_1::test(); //bitOper.h
 //    offer_17_1::printToN(10);   //bitOper.h
 //    offer_17_1::printToNadd(10); //bitOper.h
-    offer_17_1::printToNrecursion(10); //bitOper.h
+//    offer_17_1::printToNrecursion(10); //bitOper.h
+//    offer_18_1::test();  //linkList.h
+    offer_18_2::test(); //linkList.h
     return 0;
 
 }
