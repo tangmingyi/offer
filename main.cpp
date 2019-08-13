@@ -1,7 +1,7 @@
 #include <iostream>
 #include "duplicate_num_3.h"
 #include "duplicate_num_4.h"
-#include "replace_blank.h"
+#include "charOpe.h"
 #include "linkList.h"
 #include "tree.h"
 #include "stackAndQueue.h"
@@ -229,6 +229,18 @@ namespace offer_18_2{
     }
 }
 
+namespace offer_19_1{
+    void test(){
+        char str[] = "tangmingi";
+        char pattren[] = "t.*g.*i";
+        if(match(str,pattren)){
+            printf("match succesful!");
+        } else{
+            printf("do not match");
+        }
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -248,7 +260,8 @@ int main(){
 //    offer_17_1::printToNadd(10); //bitOper.h
 //    offer_17_1::printToNrecursion(10); //bitOper.h
 //    offer_18_1::test();  //linkList.h
-    offer_18_2::test(); //linkList.h
+//    offer_18_2::test(); //linkList.h
+    offer_19_1::test();  //charOpe.h
     return 0;
 
 }
