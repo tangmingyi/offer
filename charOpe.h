@@ -96,7 +96,7 @@ namespace offer_19_1 {
                 return core2(str, pattern, strIndex + 1, patternIndex) ||
                        core2(str, pattern, strIndex + 1, patternIndex + 2) ||
                        core(str, pattern, strIndex, patternIndex + 2);
-            }else{
+            } else {
                 return false;
             }
         }
@@ -106,5 +106,125 @@ namespace offer_19_1 {
         int strIndex = 0;
         int patternIndex = 0;
         return core2(str, pattern, strIndex, patternIndex);
+    }
+}
+
+namespace offer_20_1 {
+    bool oneCharIsNum(char str) {
+        int num = str - '0';
+        if(num>=0 && num<10){
+            return true;
+        }
+        return false;
+    }
+    bool charIsNumNotZero(char str){
+        int num = str - '0';
+        if(num>0 && num<10){
+            return true;
+        }
+        return false;
+    }
+    bool checkIntHead(char* str,int index){
+        if( charIsNumNotZero(str[index]) || ( (str[index]=='-' || str[index]=='+') && charIsNumNotZero(str[index+1]))){
+            return true;
+        } else if((str[index]=='0'&&str[index+1]=='.') || ((str[index]=='-' || str[index]=='+')&&(str[index+1]=='0'&&str[index+2]=='.')) ){
+            return true;
+        }
+        return false;
+    }
+    bool checkFloatHeat(char* str,int index){
+        if(str[index]=='.' && charIsNumNotZero(str[index+1])){
+            return true;
+        }
+        return false;
+    }
+    bool checkEHeat(char* str,int index){
+        if( (str[index]=='e' || str[index]=='E') && (charIsNumNotZero(str[index+1]) || ((str[index+1]=='-' ||  str[index+1]=='+')&&charIsNumNotZero(str[index+2])) ) ){
+            return true;
+        }
+        return false;
+    }
+    //不需要模式检测，因为不同模式之间是由无符号整形或有符号整形分割的，重点思考模式是如何转换的。
+    bool isNum(char* num) {
+        bool IsInteger = checkIntHead(num,0);
+        bool IsFloat = checkFloatHeat(num,0);
+        bool IsE = false;
+        int eStart = -1;
+        if(!IsInteger&&!IsFloat){
+            return false;
+        }
+        int i = 1;
+        while (num[i] != '\0') {
+            if (IsInteger) {
+                if(checkFloatHeat(num,i)){
+                    if (IsFloat){
+                        return false;
+                    }else{IsFloat=true;IsInteger= false;i++;
+                        continue;}
+                } else if (checkEHeat(num,i)){
+                    if(IsE){
+                        return false;
+                    } else{IsFloat= true;IsInteger=false;eStart=i;i++;
+                        continue;}
+                }
+                if(!oneCharIsNum(num[i])){
+                    return false;
+                }
+            }
+
+            if(IsFloat){
+                if(checkEHeat(num,i)){
+                    if(IsE){
+                        return false;
+                    } else{IsFloat= false;IsE=true;eStart=i;i++;
+                        continue;}
+                }
+                if(!oneCharIsNum(num[i])){
+                    return false;
+                }
+            }
+            if(IsE){
+                if(i == eStart+1){
+                    if(!(oneCharIsNum(num[i]) || (num[i]=='-' || num[i]=='+') )){
+                        return false;
+                    }
+                }else if(!oneCharIsNum(num[i])){
+                    return false;
+                }
+            }
+            i++;
+        }
+        return true;
+
+    }
+    namespace right{
+        bool isUnsignedNum(const char** str){
+            const char* before = *str;
+            while(**str!='\0' && **str>='0'&&**str<='9'){
+                (*str)++;
+            }
+            return *str>before;
+        }
+        bool isNum(const char** str){
+            if(**str=='+'||**str=='-'){
+                (*str)++;
+            }
+            return isUnsignedNum(str);
+        }
+        bool isNumeric(const char* str){
+            if(str== nullptr){
+                return false;
+            }
+            bool numeric = isNum(&str);
+            if(*str=='.'){
+                str++;
+                numeric = numeric || isUnsignedNum(&str);
+            }
+            if(*str=='e'||*str=='E'){
+                str++;
+                numeric = numeric && isNum(&str);
+            }
+            return numeric;
+        }
     }
 }

@@ -241,6 +241,18 @@ namespace offer_19_1{
     }
 }
 
+namespace offer_20_1{
+    void test() {
+        char num[] = "00000e-10";
+//        if(isNum(num)){
+        if(right::isNumeric(num)){
+            printf("string %s is number",num);
+        } else{
+            printf("string %s is not number",num);
+        }
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -261,7 +273,8 @@ int main(){
 //    offer_17_1::printToNrecursion(10); //bitOper.h
 //    offer_18_1::test();  //linkList.h
 //    offer_18_2::test(); //linkList.h
-    offer_19_1::test();  //charOpe.h
+//    offer_19_1::test();  //charOpe.h
+    offer_20_1::test();  //charOpe.h
     return 0;
 
 }
