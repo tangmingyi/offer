@@ -239,3 +239,56 @@ namespace offer_23_1{
         return loopEntry;
     }
 }
+
+namespace offer_24_1{
+    offer_6_1::ListNode* ReverseList(offer_6_1::ListNode* pHead){
+        if(pHead== nullptr){
+            throw "linklist is not exit";
+        }
+        if(pHead->p_next== nullptr){
+            return pHead;
+        }
+        offer_6_1::ListNode* pPreNode = pHead;
+        offer_6_1::ListNode* pMidNode = pHead->p_next;
+        if(pHead->p_next->p_next== nullptr){
+            pHead = pHead->p_next;
+            pPreNode->p_next = nullptr;
+            pMidNode->p_next = pPreNode;
+            pPreNode = nullptr;
+            pMidNode = nullptr;
+            return pHead;
+        }
+        offer_6_1::ListNode* pLastNode = pHead->p_next->p_next;
+        pPreNode->p_next = nullptr;
+        while (pLastNode->p_next!= nullptr){
+            pMidNode->p_next = pPreNode;
+            pPreNode = pMidNode;
+            pMidNode = pLastNode;
+            pLastNode = pLastNode->p_next;
+        }
+        pMidNode->p_next = pPreNode;
+        pLastNode->p_next = pMidNode;
+        pHead = pLastNode;
+        pPreNode = nullptr;
+        pMidNode = nullptr;
+        pLastNode = nullptr;
+        return pHead;
+    }
+    namespace right{
+        offer_6_1::ListNode* ReverseList(offer_6_1::ListNode* pHead){
+            offer_6_1::ListNode* pReversedHead = nullptr;
+            offer_6_1::ListNode* pNode = pHead;
+            offer_6_1::ListNode* pPrev = nullptr;
+            while (pNode!= nullptr){
+                offer_6_1::ListNode* pNext = pNode->p_next;
+                if(pNext== nullptr){
+                    pReversedHead = pNode;
+                }
+                pNode->p_next = pPrev;
+                pPrev = pNode;
+                pNode = pNext;
+            }
+            return pReversedHead;
+        }
+    }
+}

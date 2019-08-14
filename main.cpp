@@ -303,6 +303,23 @@ namespace offer_23_1{
     }
 }
 
+namespace offer_24_1{
+    void test(){
+        int lenght = 10;
+        offer_6_1::ListNode* pHead = offer_6_1::getListNode(lenght);
+        offer_6_1::printLinkList(pHead);
+        printf("\n");
+        try {
+//            pHead = nullptr;
+//            pHead = ReverseList(pHead);
+            pHead = right::ReverseList(pHead);
+            offer_6_1::printLinkList(pHead);
+        }catch (const char* msg){
+            cout<<msg;
+        }
+    }
+}
+
 
 
 int main(){
@@ -330,7 +347,8 @@ int main(){
 //    offer_21_1::test(); //list.h
 //    offer_21_1::test2(); //list.h
 //    offer_22_1::test(); //linkList.h
-    offer_23_1::test(); //linklist.h
+//    offer_23_1::test(); //linklist.h
+    offer_24_1::test(); //linklist.h
     return 0;
 
 }
