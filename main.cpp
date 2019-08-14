@@ -253,6 +253,26 @@ namespace offer_20_1{
     }
 }
 
+namespace offer_21_1{
+    void test(){
+        int length = 5;
+        int nums[] = {1,2,3,4,5};
+        ReorderOodEvent(nums,length);
+        for(int i=0;i<length;i++){
+            printf("%d  ",nums[i]);
+        }
+    }
+
+    void test2(){
+        int length = 5;
+        int nums[] = {1,2,3,4,5};
+        right::ReorderOodEvent(nums,length,fingOodNum,findEvenNum);
+        for(int i=0;i<length;i++){
+            printf("%d  ",nums[i]);
+        }
+    }
+}
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -274,7 +294,9 @@ int main(){
 //    offer_18_1::test();  //linkList.h
 //    offer_18_2::test(); //linkList.h
 //    offer_19_1::test();  //charOpe.h
-    offer_20_1::test();  //charOpe.h
+//    offer_20_1::test();  //charOpe.h
+//    offer_21_1::test(); //list.h
+    offer_21_1::test2();
     return 0;
 
 }
