@@ -136,3 +136,34 @@ namespace offer_18_2{
         }
     }
 }
+
+namespace offer_22_1{
+    bool initPOne(offer_6_1::ListNode** pOne ,int k){
+        offer_6_1::ListNode* pNode = *pOne;
+        for(int i=1;i<k;i++){
+            if(pNode->p_next== nullptr){
+                return false;
+            }
+            pNode = pNode->p_next;
+        }
+        *pOne = pNode;
+        pNode = nullptr;
+        return true;
+    }
+    int printLinkListK(offer_6_1::ListNode* pHead,int k){
+        if(pHead== nullptr || k<1){
+            throw "input have probrom";
+        }
+        offer_6_1::ListNode* pOne = pHead;
+        offer_6_1::ListNode* pTwo = pHead;
+        bool pStatus = initPOne(&pOne,k);
+        if(!pStatus){
+            throw "k may be too big than linklist total length";
+        }
+        while (pOne->p_next!= nullptr){
+            pOne = pOne->p_next;
+            pTwo = pTwo->p_next;
+        }
+        return pTwo->value;
+    }
+}

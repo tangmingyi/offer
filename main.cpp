@@ -271,6 +271,24 @@ namespace offer_21_1{
     }
 }
 
+namespace offer_22_1{
+    void test(){
+        offer_6_1::ListNode* OneNode = nullptr;
+        offer_6_1::ListNode** pHead = &OneNode;
+        int lenght = 6;
+        for (int i=0;i<lenght;i++){
+            AddNodeEnd(pHead,i);
+        }
+        try {
+            printf("k point is %d",printLinkListK(*pHead, 0));
+        }catch (const char* msg){
+            cout<<msg;
+        }
+    }
+}
+
+
+
 int main(){
 //    offer_4_1::test();
 //    offer_5_1::test();
@@ -294,7 +312,8 @@ int main(){
 //    offer_19_1::test();  //charOpe.h
 //    offer_20_1::test();  //charOpe.h
 //    offer_21_1::test(); //list.h
-    offer_21_1::test2();
+//    offer_21_1::test2(); //list.h
+    offer_22_1::test();
     return 0;
 
 }
