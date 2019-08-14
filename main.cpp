@@ -287,6 +287,22 @@ namespace offer_22_1{
     }
 }
 
+namespace offer_23_1{
+    void test(){
+        int lenght = 6;
+        offer_6_1::ListNode* pHead = offer_6_1::getListNode(lenght);
+        offer_6_1::printLinkList(pHead);
+        offer_6_1::ListNode *pNode = offer_6_1::getOneNode(pHead, 6);
+        printf("\n %d \n",pNode->value);
+        offer_6_1::ListNode* loopEntry = offer_6_1::getOneNode(pHead,3);
+        pNode->p_next = loopEntry;
+//        offer_6_1::printLinkList(pHead);
+        offer_6_1::ListNode entry = entryNodeOfLoop(pHead);
+        printf("entry loop is %d",entry.value);
+
+    }
+}
+
 
 
 int main(){
@@ -313,7 +329,8 @@ int main(){
 //    offer_20_1::test();  //charOpe.h
 //    offer_21_1::test(); //list.h
 //    offer_21_1::test2(); //list.h
-    offer_22_1::test();
+//    offer_22_1::test(); //linkList.h
+    offer_23_1::test(); //linklist.h
     return 0;
 
 }

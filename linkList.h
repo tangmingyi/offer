@@ -13,6 +13,19 @@ namespace offer_6_1 {
         int value;
         ListNode* p_next;
     };
+
+    ListNode* getOneNode(ListNode* pHead, int index){
+        int i = 1;
+        while(pHead != nullptr){
+            if(index==i){
+                return pHead;
+            }
+            pHead = pHead->p_next;
+            i++;
+        }
+        throw "index too big";
+    }
+
     void printLinkList(ListNode* pHead){
         printf("Head");
         ListNode* pNode = pHead;
@@ -36,6 +49,15 @@ namespace offer_6_1 {
             }
             pNode->p_next = pNew;
         }
+    }
+
+    ListNode* getListNode(int length){
+        ListNode* OneNode = nullptr;
+        ListNode** pHead = &OneNode;
+        for (int i=1;i<=length;i++){
+            AddNodeEnd(pHead,i);
+        }
+        return *pHead;
     }
 
     void print_list_reversing(ListNode* pHead) { //这里不需要改变头指针，因此不需要二级头指。
@@ -165,5 +187,55 @@ namespace offer_22_1{
             pTwo = pTwo->p_next;
         }
         return pTwo->value;
+    }
+}
+
+namespace offer_23_1{
+    offer_6_1::ListNode* isLoopLinkList(offer_6_1::ListNode* pHead){
+        offer_6_1::ListNode* pLast = pHead;
+        offer_6_1::ListNode* pFast = pHead->p_next;
+        while (pFast != nullptr){
+            if(pFast == pLast){
+                pFast = nullptr;
+                return pLast;
+            }
+            pLast = pLast->p_next;
+            pFast = pFast->p_next->p_next;
+        }
+        pFast = nullptr;
+        pLast = nullptr;
+        return nullptr;
+    }
+    int getLoopNum(offer_6_1::ListNode* pNode){
+        int i = 1;
+        offer_6_1::ListNode* pTemp = pNode->p_next;
+        while(pTemp!=pNode){
+            pTemp = pTemp->p_next;
+            i++;
+        }
+        return i;
+    }
+    offer_6_1::ListNode entryNodeOfLoop(offer_6_1::ListNode* pHead){
+        if(pHead== nullptr){
+            throw "pHeac == nullptr";
+        }
+        offer_6_1::ListNode* pNode = nullptr;
+        pNode = isLoopLinkList(pHead);
+        if(pNode == nullptr){
+            throw "linklist is not loop";
+        }
+        int loopLength = getLoopNum(pNode);
+        pNode = nullptr;
+        offer_6_1::ListNode* pOne = pHead;
+        offer_6_1::ListNode* pTwo = pHead;
+        offer_22_1::initPOne(&pOne,loopLength);
+        while (pOne->p_next!=pTwo){
+            pOne = pOne->p_next;
+            pTwo = pTwo->p_next;
+        }
+        offer_6_1::ListNode loopEntry = *pTwo;
+        pOne = nullptr;
+        pTwo = nullptr;
+        return loopEntry;
     }
 }
