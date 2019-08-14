@@ -1,6 +1,4 @@
 #include <iostream>
-#include "duplicate_num_3.h"
-#include "duplicate_num_4.h"
 #include "charOpe.h"
 #include "linkList.h"
 #include "tree.h"
