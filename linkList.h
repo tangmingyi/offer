@@ -60,6 +60,15 @@ namespace offer_6_1 {
         return *pHead;
     }
 
+    ListNode* getListNode(int length,int (*fun)(int)){
+        ListNode* OneNode = nullptr;
+        ListNode** pHead = &OneNode;
+        for (int i=1;i<=length;i++){
+            AddNodeEnd(pHead,fun(i));
+        }
+        return *pHead;
+    }
+
     void print_list_reversing(ListNode* pHead) { //这里不需要改变头指针，因此不需要二级头指。
         std::stack<int> s;
 
@@ -289,6 +298,73 @@ namespace offer_24_1{
                 pNode = pNext;
             }
             return pReversedHead;
+        }
+    }
+}
+
+namespace offer_25_1{
+    offer_6_1::ListNode* Merge(offer_6_1::ListNode* pHead1,offer_6_1::ListNode* pHead2){
+        if(pHead1== nullptr&&pHead2== nullptr){
+            throw "input have some probem";
+        }
+        if(pHead1== nullptr){
+            return pHead2;
+        }else if(pHead2== nullptr){
+            return pHead1;
+        }
+        offer_6_1::ListNode* pMergeHead = nullptr;
+        offer_6_1::ListNode* pNode = nullptr;
+        offer_6_1::ListNode* pNode1 = pHead1;
+        offer_6_1::ListNode* pNode2 = pHead2;
+        if(pHead1->value<=pHead2->value){
+            pNode = pHead1;
+            pMergeHead = pHead1;
+            pNode1 = pNode1->p_next;
+        }else {
+            pNode = pHead2;
+            pMergeHead = pHead2;
+            pNode2 = pNode2->p_next;
+        }
+//        bool over = false;
+        while (true){
+            if(pNode1== nullptr){
+                pNode->p_next = pNode2;
+                break;
+            }else if(pNode2== nullptr){
+                pNode->p_next = pNode1;
+                break;
+            }
+            if(pNode1->value <= pNode2->value){
+                pNode->p_next = pNode1;
+                pNode = pNode->p_next;
+                pNode1 = pNode1->p_next;
+            } else{
+                pNode->p_next = pNode2;
+                pNode = pNode->p_next;
+                pNode2 = pNode2->p_next;
+            }
+        }
+        return pMergeHead;
+    }
+    namespace right{
+        offer_6_1::ListNode* Merge(offer_6_1::ListNode* pHead1,offer_6_1::ListNode* pHead2){
+            if(pHead1== nullptr&&pHead2== nullptr){
+                return nullptr;
+            }
+            if(pHead1== nullptr){
+                return pHead2;
+            }else if(pHead2== nullptr){
+                return pHead1;
+            }
+            offer_6_1::ListNode* pMerge = nullptr;
+            if(pHead1->value<=pHead2->value){
+                pMerge = pHead1;
+                pMerge->p_next = Merge(pHead1->p_next,pHead2);
+            }else{
+                pMerge = pHead2;
+                pMerge->p_next = Merge(pHead1,pHead2->p_next);
+            }
+            return pMerge;
         }
     }
 }
