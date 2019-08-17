@@ -6,52 +6,94 @@
 #define OFFER_TREE_H
 
 #endif //OFFER_TREE_H
-
-namespace offer_7_1{
-    struct BinaryTreeNode{
-      int value;
-      BinaryTreeNode* left;
-      BinaryTreeNode* right;
-      BinaryTreeNode* father;
+namespace tree {
+    struct BinaryTreeNode {
+        int value;
+        BinaryTreeNode *left;
+        BinaryTreeNode *right;
+        BinaryTreeNode *father;
     };
+    namespace tool {
+        void Traversal(BinaryTreeNode* root,void (*RootOpt)(BinaryTreeNode*),int rule=1) {
+            if(root== nullptr){
+                return;
+            }
+            if(rule==1){        //前序遍历
+                RootOpt(root);
+                Traversal(root->left,RootOpt,rule);
+                Traversal(root->right,RootOpt,rule);
+            }else if(rule==2){      //中序遍历
+                Traversal(root->left,RootOpt,rule);
+                RootOpt(root);
+                Traversal(root->right,RootOpt,rule);
+            }else{ //后序遍历
+                Traversal(root->left,RootOpt,rule);
+                Traversal(root->right,RootOpt,rule);
+                RootOpt(root);
+            }
+        }
+
+
+        void __printTree(BinaryTreeNode* root){
+            printf("%d--",root->value);
+        }
+        void printTree(BinaryTreeNode* root,int rule=1){
+            Traversal(root,__printTree,rule);
+        }
+
+
+    }
 }
 
 namespace {
 //    using namespace offer_7_1;
-    offer_7_1::BinaryTreeNode* conpenont(int* preorderStart,int*preorderEnd,int* middleorderStart,int* middleorderEnd,offer_7_1::BinaryTreeNode* father ){
-        offer_7_1::BinaryTreeNode* pNewNode = new offer_7_1::BinaryTreeNode();
-        pNewNode->value=*preorderStart;
-        pNewNode->father=father;
+    tree::BinaryTreeNode *conpenont(int *preorderStart, int *preorderEnd, int *middleorderStart, int *middleorderEnd,
+                                    tree::BinaryTreeNode *father) {
+        tree::BinaryTreeNode *pNewNode = new tree::BinaryTreeNode();
+        pNewNode->value = *preorderStart;
+        pNewNode->father = father;
         pNewNode->left = nullptr;
         pNewNode->right = nullptr;
-        int* rootmiddleorder = middleorderStart;
-        while (*rootmiddleorder!=pNewNode->value){
+        int *rootmiddleorder = middleorderStart;
+        while (*rootmiddleorder != pNewNode->value) {
             rootmiddleorder++;
         }
-        int leftlength = rootmiddleorder-middleorderStart;
+        int leftlength = rootmiddleorder - middleorderStart;
         //注意建树tiaoijan。
-        if (leftlength > 0){
-            pNewNode->left = conpenont(preorderStart+1,preorderStart+leftlength,middleorderStart,rootmiddleorder-1,pNewNode);
+        if (leftlength > 0) {
+            pNewNode->left = conpenont(preorderStart + 1, preorderStart + leftlength, middleorderStart,
+                                       rootmiddleorder - 1, pNewNode);
         }
-        if (leftlength < preorderEnd - preorderStart){
-            pNewNode->right = conpenont(preorderStart+leftlength+1,preorderEnd,rootmiddleorder+1,middleorderEnd,pNewNode);
+        if (leftlength < preorderEnd - preorderStart) {
+            pNewNode->right = conpenont(preorderStart + leftlength + 1, preorderEnd, rootmiddleorder + 1,
+                                        middleorderEnd, pNewNode);
         }
         return pNewNode;
     }
 }
 
-namespace offer_7_1{
+namespace offer_7_1 {
 
-    BinaryTreeNode* Construct(int* preorder,int* middleorder,int length){
-        if(preorder== nullptr||middleorder== nullptr||length<=0){
+    tree::BinaryTreeNode *Construct(int *preorder, int *middleorder, int length) {
+        if (preorder == nullptr || middleorder == nullptr || length <= 0) {
             return nullptr;
         }
-        BinaryTreeNode* pHead = conpenont(preorder,preorder+length-1,middleorder,middleorder+length-1, nullptr);
+        tree::BinaryTreeNode *pHead = conpenont(preorder, preorder + length - 1, middleorder, middleorder + length - 1,
+                                          nullptr);
         return pHead;
     }
 }
 
-namespace offer_8_1{
+namespace tree{
+    namespace tool{
+        //根据前序遍历和中序遍历拿到二叉树。
+        BinaryTreeNode* getTree(int *preorder, int *middleorder, int length){
+            return offer_7_1::Construct(preorder,middleorder,length);
+        }
+    }
+}
+
+namespace offer_8_1 {
 //    void precessNode(BinaryTreeNode* pNode){
 //        if (pNode->left != nullptr) {
 //            pNode->left->father = pNode;
@@ -78,19 +120,19 @@ namespace offer_8_1{
 //        return pHead;
 //    }
 
-    offer_7_1::BinaryTreeNode* GetNext(offer_7_1::BinaryTreeNode* pNode){
-        if (pNode==nullptr){
+    tree::BinaryTreeNode *GetNext(tree::BinaryTreeNode *pNode) {
+        if (pNode == nullptr) {
             return nullptr;
         }
-        if (pNode->right != nullptr){
+        if (pNode->right != nullptr) {
             pNode = pNode->right;
-            while (pNode->left != nullptr){
+            while (pNode->left != nullptr) {
                 pNode = pNode->left;
             }
-        } else if (pNode->father->left==pNode){
+        } else if (pNode->father->left == pNode) {
             pNode = pNode->father;
-        } else{
-            while (pNode->father->left!=pNode){
+        } else {
+            while (pNode->father->left != pNode) {
                 pNode = pNode->father;
             }
         }
@@ -98,3 +140,52 @@ namespace offer_8_1{
     }
 }
 
+namespace offer_26_1{
+    bool core(tree::BinaryTreeNode* pRoot1,tree::BinaryTreeNode* pRoot2){
+        if(pRoot2 == nullptr){
+            return true;
+        }
+        if(pRoot1 == nullptr){
+            return false;
+        }
+        if(pRoot1->value == pRoot2->value){
+            return core(pRoot1->left,pRoot2->left) && core(pRoot1->right,pRoot2->right);
+        }
+        return false;
+    }
+    bool Traversal(tree::BinaryTreeNode* pRoot1,tree::BinaryTreeNode* pRoot2){
+        bool result = false;
+        if(pRoot1== nullptr){
+            return false;
+        }
+        if(pRoot1->value==pRoot2->value){
+            result = core(pRoot1,pRoot2);
+        }
+        if(!result) {
+            result = Traversal(pRoot1->left, pRoot2);
+        }
+        if(!result) {
+            result = Traversal(pRoot1->right, pRoot2);
+        }
+        return result;
+    }
+    bool HasSubtree(tree::BinaryTreeNode* pRoot1,tree::BinaryTreeNode* pRoot2){
+        if(pRoot1== nullptr||pRoot2== nullptr){
+            return false;
+        }
+        return Traversal(pRoot1,pRoot2);
+    }
+}
+namespace offer_27_1{
+    void exchange(tree::BinaryTreeNode* pNode){
+        tree::BinaryTreeNode* pTemp = pNode->left;
+        pNode->left = pNode->right;
+        pNode->right = pTemp;
+    }
+    void MirrorRecursively(tree::BinaryTreeNode* pRoot){
+        if(pRoot== nullptr){
+            return;
+        }
+        tree::tool::Traversal(pRoot,exchange);
+    }
+}

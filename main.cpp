@@ -79,11 +79,11 @@ namespace offer_7_1{
         int length = 9;
         int preorder[length] = {1,2,4,5,8,9,3,6,7};
         int middleorder[length] = {4,2,8,5,9,1,6,3,7};
-        BinaryTreeNode* pHead;
+        tree::BinaryTreeNode* pHead;
         pHead = Construct(preorder,middleorder,length);
-        BinaryTreeNode* a=pHead;
-        BinaryTreeNode* b = a->right;
-        BinaryTreeNode* c = b->left;
+        tree::BinaryTreeNode* a=pHead;
+        tree::BinaryTreeNode* b = a->right;
+        tree::BinaryTreeNode* c = b->left;
 //        BinaryTreeNode* d = c->right;
         printf("%d -> %d -> %d \n",a->value,b->value,c->value);
         printf("%d",c->father->value);
@@ -95,8 +95,8 @@ namespace offer_8_1{
         int length = 9;
         int preorder[length] = {1,2,4,5,8,9,3,6,7};
         int middleorder[length] = {4,2,8,5,9,1,6,3,7};
-        offer_7_1::BinaryTreeNode* pHead = offer_7_1::Construct(preorder,middleorder,length);
-        offer_7_1::BinaryTreeNode* pNext = GetNext(pHead);
+        tree::BinaryTreeNode* pHead = offer_7_1::Construct(preorder,middleorder,length);
+        tree::BinaryTreeNode* pNext = GetNext(pHead);
         printf("%d -> %d",pHead->value,pNext->value);
     }
 }
@@ -342,6 +342,40 @@ namespace offer_25_1{
     }
 }
 
+namespace offer_26_1{
+    void test(){
+        int length = 7;
+        int perList1[] = {10,8,9,2,4,7,11};
+        int midList1[] = {9,8,4,2,7,10,11};
+        int perList2[] = {8,9,2};
+        int midList2[] = {9,8,2};
+        tree::BinaryTreeNode* pRoot1 = tree::tool::getTree(perList1,midList1,length);
+        tree::tool::printTree(pRoot1);
+        printf("\n");
+        tree::BinaryTreeNode* pRoot2 = tree::tool::getTree(perList2,midList2,3);
+        tree::tool::printTree(pRoot2);
+        printf("\n");
+        if(HasSubtree(pRoot1,pRoot2)){
+            printf("is subtree");
+        } else{
+            printf("is not subtree");
+        }
+    }
+}
+
+namespace offer_27_1{
+    void test(){
+        int length = 7;
+        int perList1[] = {10,8,9,2,4,7,11};
+        int midList1[] = {9,8,4,2,7,10,11};
+        tree::BinaryTreeNode* pRoot = tree::tool::getTree(perList1,midList1,length);
+        tree::tool::printTree(pRoot);
+        printf("\n");
+        MirrorRecursively(pRoot);
+        tree::tool::printTree(pRoot);
+    }
+}
+
 
 
 int main(){
@@ -371,7 +405,9 @@ int main(){
 //    offer_22_1::test(); //linkList.h
 //    offer_23_1::test(); //linklist.h
 //    offer_24_1::test(); //linklist.h
-    offer_25_1::test();  //linklist.h
+//    offer_25_1::test();  //linklist.h
+//    offer_26_1::test();  //tree.h
+    offer_27_1::test();   //tree.h
     return 0;
 
 }
