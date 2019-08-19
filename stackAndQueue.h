@@ -51,3 +51,29 @@ namespace offer_9_1{
     template <typename W> CQueue<W>::CQueue(void) {}
     template <typename T> CQueue<T>::~CQueue(void) {}
 }
+
+namespace offer_30_1{
+    class Solution {
+    public:
+        std::stack<int> m_data;
+        std::stack<int> m_min;
+        void push(int value) {
+            m_data.push(value);
+            if(m_min.size()==0 || m_min.top() >= value){
+                m_min.push(value);
+            }else if(m_min.top() < value) {
+                m_min.push(m_min.top());
+            }
+        }
+        void pop() {
+            m_data.pop();
+            m_min.pop();
+        }
+        int top() {
+            return m_data.top();
+        }
+        int min() {
+            return m_min.top();
+        }
+    };
+}

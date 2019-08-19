@@ -5,6 +5,7 @@
 #ifndef OFFER_LIST_H
 #define OFFER_LIST_H
 
+#include <vector>
 #endif //OFFER_LIST_H
 //
 // Created by tmy on 19-8-4.
@@ -183,4 +184,52 @@ namespace offer_21_1 {
             return;
         }
     }
+}
+
+namespace offer_29_1{
+    class Solution {
+    public:
+        vector<int> printMatrix(vector<vector<int> > matrix) {
+            vector<int> out;
+            int rows = matrix.size();
+            int cols = matrix[0].size();
+            int row = 0;
+            int col = 0;
+            while (true){
+                if(rows!=0){
+                    for(int i=0;i<cols;i++){
+                        out.push_back(matrix[row][col++]);
+                    }
+                    col--;
+                    row++;
+                    rows--;
+                } else{ break;}
+                if(cols!=0){
+                    for(int i=0;i<rows;i++){
+                        out.push_back(matrix[row++][col]);
+                    }
+                    row--;
+                    col--;
+                    cols--;
+                } else{ break;}
+                if(rows!=0){
+                    for(int i=0;i<cols;i++){
+                        out.push_back(matrix[row][col--]);
+                    }
+                    col++;
+                    row--;
+                    rows--;
+                } else{ break;}
+                if(cols!=0){
+                    for(int i=0;i<rows;i++){
+                        out.push_back(matrix[row--][col]);
+                    }
+                    row++;
+                    col++;
+                    cols--;
+                } else{ break;}
+            }
+            return out;
+        }
+    };
 }

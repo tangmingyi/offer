@@ -375,7 +375,20 @@ namespace offer_27_1{
         tree::tool::printTree(pRoot);
     }
 }
+namespace offer_28_1{
+    void test(){
+        //37题数的序列化后再写。
+    }
+}
 
+namespace offer_37_1{
+    void test(){
+        int length = 13;
+        char nums[] = "124$$$35$$6$$";
+        tree::BinaryTreeNode* pRoot = Deserialize(nums,length);
+        tree::tool::printTree(pRoot);
+    }
+}
 
 
 int main(){
@@ -407,7 +420,9 @@ int main(){
 //    offer_24_1::test(); //linklist.h
 //    offer_25_1::test();  //linklist.h
 //    offer_26_1::test();  //tree.h
-    offer_27_1::test();   //tree.h
+//    offer_27_1::test();   //tree.h
+    offer_37_1::test();
+
     return 0;
 
 }
