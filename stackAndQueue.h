@@ -7,6 +7,7 @@
 #include <iostream>
 #include <stack>
 #include <exception>
+#include <vector>
 #endif //OFFER_STACKANDQUEUE_H
 using namespace std;
 namespace offer_9_1{
@@ -76,4 +77,39 @@ namespace offer_30_1{
             return m_min.top();
         }
     };
+}
+
+namespace offer_31_1{
+    class Solution {
+    public:
+        bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+            if(pushV.size()!=popV.size()){
+                return false;
+            }
+            if(popV.empty()){
+                return true;
+            }
+            std::stack<int> temp;
+            auto popIter = popV.begin();
+            for (auto pushIter=pushV.begin();pushIter!=pushV.end();pushIter++){
+                temp.push(*pushIter);
+                while ((!temp.empty())&&temp.top()==*popIter){  //这里调用栈时要检查是否为空
+                    temp.pop();
+                    popIter++;
+                }
+            }
+            return temp.empty();
+        }
+    };
+    void test(){
+        std::vector<int> push({1,2,3,4,5});
+        std::vector<int> pop({4,3,5,2,1});
+        Solution a;
+        bool flag = a.IsPopOrder(push,pop);
+        if(flag){
+            printf("right");
+        } else{
+            printf("false");
+        }
+    }
 }
