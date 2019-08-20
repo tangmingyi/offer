@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <queue>
 #endif //OFFER_TREE_H
 namespace tree {
     struct BinaryTreeNode {
@@ -255,5 +257,116 @@ namespace offer_37_1{
         tree::BinaryTreeNode* pHead = nullptr;
         core(&pHead,nums,0);
         return pHead;
+    }
+}
+
+namespace offer_32_1{
+    std::vector<int> PrintFromTopToBottom(tree::BinaryTreeNode* root) {
+        std::vector<int> ver;
+        if(root == nullptr) return ver;
+        std::queue<tree::BinaryTreeNode> temp;
+        temp.push(*root);
+        while (!temp.empty()){
+            tree::BinaryTreeNode a = temp.front();
+            if(a.left!= nullptr) {
+                temp.push(*(a.left));
+            }
+            if(a.right!= nullptr) {
+                temp.push(*(a.right));
+            }
+            temp.pop();
+            ver.push_back(a.value);
+        }
+        return ver;
+    }
+}
+
+namespace offer_33_1{
+    bool core(std::vector<int> sequence,int start,int end){
+        if(start==-1 || start==end){
+            return true;
+        }
+        int bigStart = -1;
+        int bigEnd = -1;
+        int smallStart = -1;
+        int smallEnd = -1;
+        int root = sequence[end];
+        bool haveSmall = false;
+        bool haveBig = false;
+        if(sequence[start]<root){
+            smallStart = start;
+            haveSmall = true;
+        }
+        for(int i = start+1;i<=end;i++){
+            if(!haveSmall && sequence[i]<root){
+                return false;
+            }
+            if(sequence[i]>root){
+                if(!haveBig){
+                    if(haveSmall) {
+                        smallEnd = i - 1;
+                    }
+                    bigStart = i;
+                    haveSmall = false;
+                    haveBig = true;
+                }
+            }
+        }
+        if(haveBig){
+            bigEnd = end-1;
+        }
+        if(haveSmall){
+            smallEnd = end-1;
+        }
+
+        return core(sequence,smallStart,smallEnd) && core(sequence,bigStart,bigEnd);
+
+    }
+    bool VerifySquenceOfBST(std::vector<int> sequence) {
+        if(sequence.empty()){
+            return false;
+        }
+        return core(sequence,0,sequence.size()-1);
+    }
+
+    void test(){
+        std::vector<int> sequence({7,4,6,5});
+        if(VerifySquenceOfBST(sequence)){
+            printf("ture");
+        }else{
+            printf("false");
+        }
+    }
+    namespace right{
+        bool core(std::vector<int> sequence,int start,int end){
+            if(sequence.empty()||start>end){
+                return false;
+            }
+            int root = sequence[end];
+            int i = start;
+            for(i;i<end;i++){
+                if(sequence[i]>root){
+                    break;
+                }
+            }
+            for (int j=i;j<end;j++){
+                if(sequence[j]<root){
+                    return false;
+                }
+            }
+            bool left = true;
+            if(i>start){
+                left = core(sequence,start,i-1);
+            }
+
+            bool right = true;
+            if(i<end-1){
+                right = core(sequence,i,end-1);
+            }
+            return left&&right;
+        }
+        bool VerifySquenceOfBST(std::vector<int> sequence) {
+            return core(sequence,0,sequence.size()-1);
+        }
     }
 }
