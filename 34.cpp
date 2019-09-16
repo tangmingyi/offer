@@ -13,47 +13,23 @@ struct TreeNode {
             val(x), left(nullptr), right(nullptr) {
     }
 };
-bool comp(vector<int>& a,vector<int >& b){
-    return a.size() < b.size();
-}
 class Solution {
-public:
-    stack<int > s;
-    int sum=0;
+private:
+    vector<int > temp;
     vector<vector<int> > result;
-    vector<int > getResult(){
-        stack<int> temp = s;
-        vector<int > List(s.size());
-        for(int i=s.size()-1;i>=0;i--){
-            List[i] = temp.top();
-            temp.pop();
-        }
-        return List;
-    }
-    void update(){
-        sum-=s.top();
-        s.pop();
-    }
-    void NodeOpe(TreeNode* pNode){
-        s.push(pNode->val);
-        sum += pNode->val;
-    }
     void core(TreeNode* pNode,int target){
-        if(pNode== nullptr){
-            if(sum==target){
-                result.push_back(getResult());
-            }
-            update();
-            return;
+        temp.push_back(pNode->val); //pNode opt
+        if(target-pNode->val==0&&!pNode->left&&!pNode->right){
+            result.push_back(temp);
+        } else{
+            if(pNode->left)core(pNode->left,target-pNode->val);
+            if(pNode->right)core(pNode->right,target-pNode->val);
         }
-        NodeOpe(pNode);
-        core(pNode->left,target);
-        core(pNode->right,target);
-        update();
+        temp.pop_back();
     }
+public:
     vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
-        core(root,expectNumber);
-        sort(result.begin(),result.end(),comp);
+        if(root)core(root,expectNumber);
         return result;
     }
 };
