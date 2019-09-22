@@ -32,6 +32,7 @@ public:
             return result;
         }
         core(str,0);
+        sort(result.begin(),result.end());
         return result;
     }
 };

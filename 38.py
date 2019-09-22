@@ -20,10 +20,12 @@ class Solution:
                     ss[index] = char
 
     def Permutation(self, ss:str)->list:
+        if(ss==""):return []
         self._core([i for i in ss],0)
+        self.result.sort()
         return self.result
 # write code here
 if __name__ == '__main__':
     handly = Solution()
-    result = handly.Permutation("aa")
+    result = handly.Permutation("abc")
     print(result)
