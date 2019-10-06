@@ -5,21 +5,13 @@ class Solution:
     def isEven(self,num:int)->bool:
         return num % 2 == 0
     def reOrderArray(self, array:list)->list:
-        if(len(array)==0):
-            return array
-        pOod = 0
-        pEven = 1
-        while(not (pEven > len(array)-1)):
-            if(self.isOod(array[pEven]) and self.isEven(array[pOod])):
-                temp = array[pOod]
-                array[pOod] = array[pEven]
-                array[pEven] = temp
-                pOod += 1
-                pEven += 1
+        OodList = []
+        EvenList = []
+        for num in array:
+            if(self.isOod(num)):
+                OodList.append(num)
             else:
-                if(self.isOod(array[pOod])):
-                    pOod += 1
-                else:
-                    pEven += 1
-        return array
+                EvenList.append(num)
+        OodList.extend(EvenList)
+        return OodList
 # write code here
