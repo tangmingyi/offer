@@ -8,18 +8,18 @@ class Solution:
         if(len(array)==0):
             return array
         pOod = 0
-        pEven = len(array)-1
-        while(not (pEven==pOod or pEven<pOod)):
+        pEven = 1
+        while(not (pEven > len(array)-1)):
             if(self.isOod(array[pEven]) and self.isEven(array[pOod])):
                 temp = array[pOod]
                 array[pOod] = array[pEven]
                 array[pEven] = temp
                 pOod += 1
-                pEven -= 1
+                pEven += 1
             else:
                 if(self.isOod(array[pOod])):
                     pOod += 1
                 else:
-                    pEven -= 1
+                    pEven += 1
         return array
 # write code here
